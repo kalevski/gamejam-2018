@@ -13,8 +13,8 @@ class BootState extends Phaser.State {
           }, google: {families: ['Oswald']}
       };
       this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-      this.game.load.image('loader-background', 'assets/background-loading.jpg');
-      this.game.load.image('game-logo', 'assets/game-logo.jpg');
+      this.game.load.image('ui-loading-state-bg', 'assets/ui/loading-state-bg.jpg');
+      this.game.load.image('ui-logo', 'assets/ui/logo.png');
     }
 
     create() {

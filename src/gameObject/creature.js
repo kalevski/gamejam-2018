@@ -1,17 +1,26 @@
 import Phaser from '../phaser';
+import creatureSetting from '../setting/creatureSetting';
 
 class Creature extends Phaser.Group {
 
     data = null;
     headSprite = null;
-    bodySprite = null;
+    bodyCoreSprite = null;
+    bodyDecoratorSprite = null;
+
+    settings = null;
 
     constructor(game, data, small) {
-        super(game, game.world, 'creature-' + data['id']);
+        super(game, game.world, 'creature');
+        
         this.data = data;
-        this.bodySprite = this.create(0, 0, 'creature-body-' + data['body']);
-        this.bodySprite.anchor.set(.5);
-        this.bodySprite.tint = data['color'];
+        this.settings = creatureSetting[data['head'] + 'x' + data['body']];
+
+        this.bodyCoreSprite = this.create(0, 0, 'creature-body-' + data['body'] + '-core');
+        this.bodyCoreSprite.anchor.set(.5);
+        this.bodyDecoratorSprite = this.create(0, 0, 'creature-body-' + data['body'] + '-decorator');
+        this.bodyDecoratorSprite.anchor.set(.5);
+        this.bodyDecoratorSprite.tint = data['color'];
         this.headSprite = this.create(0, 0, 'creature-head-' + data['head']);
         this.headSprite.anchor.set(.5);
     
@@ -23,8 +32,17 @@ class Creature extends Phaser.Group {
 
     destroy() {
         this.headSprite.destroy();
-        this.bodySprite.destroy();
+        this.bodyCoreSprite.destroy();
+        this.bodyDecoratorSprite.destroy();
         super.destroy();
+    }
+
+    getAbilityList() {
+        return this.settings['abilityList'];
+    }
+
+    getAbilityData(abilityIndex) {
+        return this.settings['data'][abilityIndex];
     }
 }
 

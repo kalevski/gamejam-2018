@@ -11,6 +11,10 @@ class UserService {
             return null;
         });
     }
+
+    createCreature(data) {
+
+    }
 }
 
 var instance = null;
