@@ -1,9 +1,13 @@
 import UserApi from './userApi';
-import ArenaApi from './arenaApi';
+import JoinSocket from './joinSocket';
 
 class Api {
+    
+    socket = {
+        JoinSocket: JoinSocket
+    }
     user = new UserApi();
-    arena = new ArenaApi();
+
 }
 
 var instance = null;

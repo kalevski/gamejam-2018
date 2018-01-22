@@ -1,19 +1,21 @@
 class UserData {
     
     nickname = null;
-    userId = null;
-    head = null;
-    body = null;
-    color = null;
+    built = false;
+    creature = null;
+    abilityList = [];
+    abilityData = null;
     
     constructor() {
-        var data  = sessionStorage.getItem('userData');
-        if (data !== null) {
-            this.nickname = data.nickname;
-            this.userId = data.userId;
-            this.head = data.head;
-            this.body = data.body;
-            this.color = data.color;
+        window.user = this; // for debugging
+        var user = sessionStorage.getItem('userData');
+        if (user !== null) {
+            user = JSON.parse(atob(user));
+            this.nickname = user.nickname;
+            this.built = user.built;
+            this.creature = user.creature;
+            this.abilityList = user.abilityList;
+            this.abilityData = user.abilityData;
         }
     }
 
@@ -25,16 +27,16 @@ class UserData {
 
     setAll(user) {
         this.nickname = user.nickname;
-        this.userId = user.userId;
-        this.head = user.head;
-        this.body = user.body;
-        this.color = user.color;
+        this.built = user.built;
+        this.creature = user.creature;
+        this.abilityList = user.abilityList;
+        this.abilityData = user.abilityData;
         this.persist();
     }
 
     persist() {
         var data = JSON.stringify(this);
-        sessionStorage.setItem('userData', data);
+        sessionStorage.setItem('userData', btoa(data));
     }
 }
 

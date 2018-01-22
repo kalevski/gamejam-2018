@@ -2,7 +2,7 @@ import Phaser from '../phaser';
 
 class BootState extends Phaser.State {
     init() {
-
+        this.game.global = {};
     }
 
     preload() {

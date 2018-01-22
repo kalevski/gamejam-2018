@@ -1,5 +1,5 @@
 import Phaser from '../phaser';
-import creatureSetting from '../setting/creatureSetting';
+import creatureConfig from '../config/creatureConfig';
 
 class Creature extends Phaser.Group {
 
@@ -8,13 +8,13 @@ class Creature extends Phaser.Group {
     bodyCoreSprite = null;
     bodyDecoratorSprite = null;
 
-    settings = null;
+    config = null;
 
     constructor(game, data, small) {
         super(game, game.world, 'creature');
         
         this.data = data;
-        this.settings = creatureSetting[data['head'] + 'x' + data['body']];
+        this.config = creatureConfig[data['head'] + 'x' + data['body']];
 
         this.bodyCoreSprite = this.create(0, 0, 'creature-body-' + data['body'] + '-core');
         this.bodyCoreSprite.anchor.set(.5);
@@ -38,11 +38,11 @@ class Creature extends Phaser.Group {
     }
 
     getAbilityList() {
-        return this.settings['abilityList'];
+        return this.config['abilityList'];
     }
 
     getAbilityData(abilityIndex) {
-        return this.settings['data'][abilityIndex];
+        return this.config['data'][abilityIndex];
     }
 }
 

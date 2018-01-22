@@ -25,11 +25,15 @@ class LoginPage extends Component {
         
         this.userService.fetch(this.nickname).then(() => {
             this.historyService.forward('/game');
+        }).catch(() => {
+            this.setState({
+                playButtonDisabled: false
+            });
         });
     }
     
     render() {
-        if (this.userData.userId !== null) {
+        if (this.userData.nickname !== null) {
             return (
                 <Redirect to="/game"/>
             );
@@ -40,7 +44,7 @@ class LoginPage extends Component {
                 <Container>
                     <Grid centered>
                         <Grid.Row>
-                            <Grid.Column width={5} mobile={12}>
+                            <Grid.Column widescreen={5} mobile={12} tablet={10} largeScreen={5}>
                             <Segment basic>
                                 <Input onChange={(event, data) => {
                                     this.nickname = data.value;

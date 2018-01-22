@@ -1,18 +1,13 @@
 import Endpoint from '../endpoint';
+import UserService from '../../service/userService';
 
 class UserEndpoint extends Endpoint {
+    
     get(request, response) {
-        response.json({
-            userId: 'example',
-            nickname: request.params.nickname,
-            head: 'example2',
-            body: 'example2',
-            color: 0xffffff
+        var userService = UserService.getInstance();
+        userService.get(request.params.nickname).then((data) => {
+            response.json(data);
         });
-    }
-
-    put(request, response) {
-        
     }
 }
 

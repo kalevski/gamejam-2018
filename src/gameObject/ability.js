@@ -1,22 +1,22 @@
 import Phaser from '../phaser';
-import abilitySetting from '../setting/abilitySetting';
+import abilityConfig from '../config/abilityConfig';
 
 class Ability extends Phaser.Sprite {
     
     index = null;
     data = null;
-    settings = null;
+    config = null;
 
     constructor(game, index, data) {
         super(game, 0, 0, 'ui-ability-' + index);
         game.world.addChild(this);
         this.index = index;
         this.data = data;
-        this.settings = abilitySetting[index];
+        this.config = abilityConfig[index];
     }
 
     getDescription() {
-        return this.settings['description'];
+        return this.config['description'];
     }
 
     fire(grid) {

@@ -3,7 +3,7 @@ import axios from 'axios';
 export default (method, url, data) => {
     return axios({
         method: method,
-        url: process.env.REACT_APP_API + url,
+        url: 'http://' + process.env.REACT_APP_API + url,
         data: data,
         headers: {
             'Access-Control-Allow-Origin': '*',

@@ -15,7 +15,7 @@ class GamePage extends Component {
     }
 
     render() {
-        if (this.userData.userId === null) {
+        if (this.userData.nickname === null) {
             return (
                 <Redirect to="/login"/>
             );

@@ -1,4 +1,5 @@
 import Phaser from '../phaser';
+import UserData from '../helper/userData';
 
 class LoadingState extends Phaser.State {
     init() {
@@ -61,7 +62,12 @@ class LoadingState extends Phaser.State {
     }
 
     loadComplete() {
-        this.game.state.start('customize');   
+        var userData = UserData.getInstance();
+        if (userData.built) {
+            this.game.state.start('lobby');
+        } else {
+            this.game.state.start('customize');
+        }   
     }
 
     shutdown() {

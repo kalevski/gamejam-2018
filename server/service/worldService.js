@@ -1,12 +1,18 @@
+import generateUuid from 'uuid/v4'; 
+import WorldDto from '../dto/worldDto';
+
 class ArenaWorldService {
     
     createWorld() {
-        // create world and create keys for players
-    }
-
-    updateWorld() {
-
+        var world = new WorldDto();
+        world.id = generateUuid();
+        this.generate(world);
+        return world.id;
     }   
+
+    generate(world) {
+
+    }
 }
 
 var instance = null;

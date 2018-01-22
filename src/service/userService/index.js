@@ -12,8 +12,14 @@ class UserService {
         });
     }
 
-    createCreature(data) {
-
+    createCreature(creature, abilityList, abilityData) {
+        return this.api.user.createCreature(this.userData.nickname, creature, abilityList, abilityData).then((response) => {
+            this.userData.set('creature', response.data.creature);
+            this.userData.set('abilityList', response.data.abilityList);
+            this.userData.set('abilityData', response.data.abilityData);
+            this.userData.set('built', true);
+            return null;
+        });
     }
 }
 

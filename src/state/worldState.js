@@ -1,12 +1,12 @@
 import Phaser from '../phaser';
 
-class ArenaState extends Phaser.State {
+class WorldState extends Phaser.State {
     init() {
-        
+
     }
 
     create() {
-
+        
     }
 
     update() {
@@ -18,5 +18,5 @@ class ArenaState extends Phaser.State {
     }
 }
   
-export default ArenaState;
+export default WorldState;
   

@@ -3,7 +3,12 @@ import Creature from '../gameObject/creature';
 import Ability from '../gameObject/ability';
 import InfoText from '../gameObject/infoText';
 
+import UserService from '../service/userService';
+
 class CustomizeState extends Phaser.State {
+    
+    userService = UserService.getInstance();
+    
     init() {
         
     }
@@ -95,6 +100,14 @@ class CustomizeState extends Phaser.State {
         if (this.validChoice()) {
             this.generateCreature();
             this.drawAbilities();    
+        } else if (this.creature !== null) {
+            this.creature.destroy();
+            this.creature = null;
+            for(let i = 0; i < this.abilities.length; i++) {
+                this.abilities[i].destroy();
+                this.abilities[i] = null;
+            }
+            this.abilities = null;
         }
     }
 
@@ -148,7 +161,15 @@ class CustomizeState extends Phaser.State {
         if (this.validChoice()) {
             this.play.tint = 0xcccccc;
             this.play.inputEnabled = false;
-            // post data to server and go to lobby
+
+            var abilityList = this.creature.getAbilityList();
+            var abilityData = {};
+            for(let i = 0; i < abilityList.length; i++) {
+                abilityData[abilityList[i]] = this.creature.getAbilityData(abilityList[i]);
+            }
+            this.userService.createCreature(this.selected, abilityList, abilityData).then(() => {
+                this.game.state.start('lobby');
+            });
         }
     }
 
