@@ -10,7 +10,7 @@ import RootEndpoint from './endpoint/app/rootEndpoint';
 import UserEndpoint from './endpoint/api/userEndpoint';
 import UserCreatureEndpoint from './endpoint/api/userCreatureEndpoint';
 import JoinEndpoint from './endpoint/api/joinEndpoint';
-import ArenaEndpoint from './endpoint/api/arenaEndpoint';
+import WorldEndpoint from './endpoint/api/worldEndpoint';
 
 class Router {
     
@@ -32,7 +32,7 @@ class Router {
         new UserEndpoint(this.expressRouter, '/api/user/:nickname');
         new UserCreatureEndpoint(this.expressRouter, '/api/user/:nickname/creature');
         new JoinEndpoint(this.expressRouter, '/api/join');
-        new ArenaEndpoint(this.expressRouter, '/api/arena/:arenaId');
+        new WorldEndpoint(this.expressRouter, '/api/world/:worldId');
         new RootEndpoint(this.expressRouter, '/*');
     }
 
