@@ -11,7 +11,7 @@ class JoinSocket extends Socket {
 
     messageHandler(event) {
         this.onWorldId.dispatch(event.data);
-        this.close();
+        // this.close();
     }
 
 

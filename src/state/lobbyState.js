@@ -55,6 +55,13 @@ class LobbyState extends Phaser.State {
                 this.game.state.start('world');
             }, 2000);
         });
+        joinSocket.event.close.addOnce(() => {
+            if (typeof this.game.global['worldId'] === 'undefined') {
+                this.play.tint = 0xffffff;
+                this.play.inputEnabled = true;
+                this.playActionStatus.text = '';
+            }
+        });
         
     }
 
