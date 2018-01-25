@@ -6,27 +6,29 @@ class WorldEndpoint extends Endpoint {
     worldService = WorldService.getInstance();
 
     websocket(ws, request) {
-        ws.on('message', (message) => this.onMessage(message, request.params.worldId));
+        let worldId = request.params.worldId;
+        let nickname = request.query.nickname;
+        ws.on('message', (message) => this.onMessage(message, worldId, nickname));
     }
 
-    onMessage(message, worldId) {
+    onMessage(message, worldId, nickname) {
         var command = this.worldService.buildCommand(message);
         if (command !== null) {
-            this.worldService.exec(worldId, command).then((world) => {
-                if (world !== null) {
-                    this.sendStatus(world);
-                }
-            });
+            this.logger.info('World[' + worldId + ']: executed: [' + command.type
+                + '] by ' + command.user);
+            this.worldService.exec(worldId, command, this.sendStatus);
         }
     }
 
-    sendStatus(world) {
-        var players = this.helper.getClients('worldId')[world.id];
+    sendStatus = (world, nickname, toAll = false) => {
+        var players = this.helper.getClients('worldId').map[world.id];
         players.forEach((player) => {
-            player.send({
-                type: 'status',
-                data: world
-            });
+            if (player.upgradeReq.query.nickname !== nickname || toAll) {
+                player.send(JSON.stringify({
+                    type: 'status',
+                    data: world
+                }));
+            }
         })
     }
 }

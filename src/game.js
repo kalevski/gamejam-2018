@@ -9,7 +9,7 @@ var instance = null;
 
 class Game extends Phaser.Game {
 	constructor() {
-		super(1280, 720, Phaser.AUTO, 'canvas', false);
+		super(1280, 720, Phaser.CANVAS, 'canvas', false);
 		
 		instance = this;
 		
@@ -18,7 +18,6 @@ class Game extends Phaser.Game {
 		this.state.add('customize', CustomizeState);
 		this.state.add('lobby', LobbyState);
 		this.state.add('world', WorldState);
-		
 	}
 
 	run() {

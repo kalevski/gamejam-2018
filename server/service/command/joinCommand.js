@@ -1,3 +1,43 @@
+import worldConfig from '../../config/worldConfig';
+
 export default (user, data, world) => {
     
+    let out = {
+        status: {
+            send: false,
+            toAll: true
+        },
+        world: world
+    }
+    
+    if (out.world.connected != 2) {
+        out.world.connected += 1;
+        out.world.userList.push(user);
+        out.world.user[user] = {
+            data: data,
+            game: {
+                position: worldConfig[out.world.type].spawn[out.world.connected - 1]
+            },
+            actions: []
+        };
+        
+        if (out.world.connected === 1) {
+            out.world.onMove = 0;
+        }
+
+        if (out.world.connected === 2) {
+            out.world.user[out.world.userList[0]].actions.push({
+                type: 'startGame',
+                data: out.world.user[out.world.userList[1]].data.creature
+            });
+            out.world.user[out.world.userList[1]].actions.push({
+                type: 'startGame',
+                data: out.world.user[out.world.userList[0]].data.creature
+            });
+            out.world.ready = true;
+            out.status.send = true;
+        }
+    }
+
+    return out;
 };

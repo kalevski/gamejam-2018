@@ -1,10 +1,12 @@
 import UserApi from './userApi';
 import JoinSocket from './joinSocket';
+import WorldSocket from './worldSocket';
 
 class Api {
     
     socket = {
-        JoinSocket: JoinSocket
+        JoinSocket: JoinSocket,
+        WorldSocket: WorldSocket
     }
     user = new UserApi();
 

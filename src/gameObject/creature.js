@@ -25,7 +25,8 @@ class Creature extends Phaser.Group {
         this.headSprite.anchor.set(.5);
     
         if (small) {
-            this.bodySprite.scale.set(.5);
+            this.bodyCoreSprite.scale.set(.5);
+            this.bodyDecoratorSprite.scale.set(.5);
             this.headSprite.scale.set(.5);
         }
     }

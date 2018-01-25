@@ -42,6 +42,7 @@ class LoadingState extends Phaser.State {
         this.game.load.image('ui-health-bar-bg', 'assets/ui/health-bar-bg.png');
         this.game.load.image('ui-health-bar-inside', 'assets/ui/health-bar-inside.png');
 
+        this.game.load.image('ui-world-state-waiting-bg', 'assets/ui/world-state-waiting-bg.png');
         this.game.load.image('ui-world-0', 'assets/ui/world/world-0.jpg');
         this.game.load.image('ui-world-1', 'assets/ui/world/world-1.jpg');
 

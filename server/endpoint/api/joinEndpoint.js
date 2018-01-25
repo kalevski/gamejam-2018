@@ -20,7 +20,6 @@ class JoinEndpoint extends Endpoint {
     }
 
     createGame(clients) {
-        console.log(clients.length);
         if (clients.length < 2) return;
         var players = [];
         clients.forEach((client) => {

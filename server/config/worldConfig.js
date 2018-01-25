@@ -10,10 +10,7 @@ export default {
                 position: '12x08'
             }
         ],
-        position: {
-            creature1: '00x00',
-            creature2: '15x10'
-        }
+        spawn: ['00x00', '15x10']
     },
     1: {
         description: 'example text',
@@ -24,9 +21,6 @@ export default {
                 position: '12x08'
             }
         ],
-        position: {
-            creature1: '00x00',
-            creature2: '15x10'
-        }
+        spawn: ['00x00', '15x10']
     }
 }

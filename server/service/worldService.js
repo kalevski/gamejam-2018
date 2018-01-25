@@ -4,6 +4,7 @@ import WorldDao from '../dao/worldDao';
 import worldConfig from '../config/worldConfig';
 
 import joinCommand from './command/joinCommand';
+import removeActionsCommand from './command/removeActionsCommand';
 
 
 class ArenaWorldService {
@@ -11,27 +12,32 @@ class ArenaWorldService {
     worldDao = new WorldDao();
 
     command = {
-        'join': joinCommand
+        'join': joinCommand,
+        'removeActions': removeActionsCommand
     };
 
     buildCommand(message) {
-        let command = JSON.parse(message);
-        let cond1 = typeof command['type'] !== 'undefined';
-        let cond2 = typeof command['user'] !== 'undefined';
-        let cond3 = typeof command['data'] === 'object';
+        let object = JSON.parse(message);
+        let cond1 = typeof object['type'] !== 'undefined';
+        let cond2 = typeof object['user'] !== 'undefined';
+        let cond3 = typeof object['data'] === 'object';
         
         if (cond1 && cond2 && cond3) {
-            return data;
+            return object;
         } else {
             return null;
         }
     }
 
-    exec(worldId, command) {
+    exec(worldId, command, sendStatus) {
         return this.worldDao.get(worldId).then((world) => {
             if (typeof this.command[command.type] === 'function') {
-                world = this.command[command.type](command.user, command.data, world);
-                return this.worldDao.update(world);
+                let out = this.command[command.type](command.user, command.data, world);
+                this.worldDao.update(out.world).then((world) => {
+                    if (out.status.send) {
+                        sendStatus(world, command.user, out.status.toAll);
+                    }
+                });
             } else {
                 return null;
             }
@@ -56,10 +62,6 @@ class ArenaWorldService {
         world.turnTime = worldConfig.turnTime;
         world.description = worldData.description;
         world.deadFields = worldData.deadFields;
-        world.postiion = {
-            creature1: worldData.position.creature1,
-            creature2: worldData.position.creature2
-        };
         this.worldDao.create(world);
     }
 }
