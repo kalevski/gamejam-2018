@@ -167,7 +167,11 @@ class CustomizeState extends Phaser.State {
             for(let i = 0; i < abilityList.length; i++) {
                 abilityData[abilityList[i]] = this.creature.getAbilityData(abilityList[i]);
             }
-            this.userService.createCreature(this.selected, abilityList, abilityData).then(() => {
+            this.userService.createCreature({
+                head: this.selected['head'],
+                body: this.selected['body'],
+                color: this.palette[this.selected['color']]
+            }, abilityList, abilityData).then(() => {
                 this.game.state.start('lobby');
             });
         }
