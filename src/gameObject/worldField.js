@@ -16,6 +16,10 @@ class WorldField extends Phaser.Group {
     field = null;
     currentPlayer = null;
     oppositePlayer = null;
+
+    diamondColor = Math.round(Math.random() * 16777215);
+
+    onGetDiamond = new Phaser.Signal();
     
     constructor(game, eventHandler, actionHelper) {
         super(game, game.world, 'worldField');
@@ -49,8 +53,9 @@ class WorldField extends Phaser.Group {
 
     createObjects() {
         this.eventHandler.world.objects.forEach((object) => {
-            this.gameObject[object.position] = new GameObject(this.game, object.type,
-                object.position, this);
+            this.gameObject[object.type] = {};
+            this.gameObject[object.type][object.position] = new GameObject(this.game,
+                object.type, object.position, this, this.diamondColor);
         });
     }
 
@@ -64,6 +69,12 @@ class WorldField extends Phaser.Group {
         });
         this.eventHandler.event.move.add((data) => {
             this.player[this.oppositePlayer].move(data);
+        });
+
+        this.player[this.currentPlayer].onMove.add((position) => {
+            if (typeof this.gameObject['diamond'][position.key] !== 'undefined') {
+                this.onGetDiamond.dispatch();
+            }
         });
     }
 }

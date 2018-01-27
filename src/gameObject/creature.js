@@ -16,6 +16,8 @@ class Creature extends Phaser.Group {
     movement = null;
     flipped = false;
 
+    onMove = new Phaser.Signal();
+
     constructor(game, data, small) {
         super(game, game.world, 'creature');
         this.game = game;
@@ -87,6 +89,7 @@ class Creature extends Phaser.Group {
     chainMovement() {
         let fieldData = this.currentPath.shift();
         if (typeof fieldData === 'undefined') return;
+        this.onMove.dispatch(this.currentField);
         this.movement = this.game.add.tween(this).to({
             x: fieldData.x,
             y: fieldData.y - 55

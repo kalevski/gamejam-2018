@@ -9,14 +9,22 @@ class Field {
     deadField = {};
     graph = null;
 
+    offset = {
+        x: 20,
+        y: 140
+    };
+
     onClick = new Phaser.Signal();
 
     constructor(group) {
-        this.createGrid(20, 140, group);
+        this.createGrid(group);
         this.createGraph();
     }
 
-    createGrid(offsetX, offsetY, group) {
+    createGrid(group) {
+        let offsetX = this.offset.x;
+        let offsetY = this.offset.y;
+        
         for(let i = 0; i < 62; i++) {
             this.fieldArray.push([]);
             for (let j = 0; j < 22; j++) {
