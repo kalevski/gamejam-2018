@@ -31,14 +31,8 @@ class LobbyState extends Phaser.State {
         for (let i = 0; i < abilityList.length; i++) {
             let ability = new Ability(this.game, abilityList[i], this.creature.getAbilityData(abilityList[i]));
             ability.position.set(124 + (i * 90), 140);
-            ability.inputEnabled = true;
-            ability.events.onInputDown.add(() => this.showAbilityDescription(i));
             this.abilities.push(ability);
         }
-    }
-
-    showAbilityDescription(index) {
-        this.abilityDescription.text = this.abilities[index].getDescription();
     }
 
     playButton() {
