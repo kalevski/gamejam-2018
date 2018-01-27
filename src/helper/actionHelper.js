@@ -13,6 +13,15 @@ class ActionHelper {
             path: path
         });
     }
+
+    removeDiamond(positionKey) {
+        this.worldSocket.send('pushAction', this.userData.nickname, {
+            type: 'removeDiamond',
+            data: {
+                positionKey: positionKey
+            }
+        });
+    }
 }
 
 export default ActionHelper;
