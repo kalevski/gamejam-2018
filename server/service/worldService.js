@@ -5,7 +5,7 @@ import worldConfig from '../config/worldConfig';
 
 import joinCommand from './command/joinCommand';
 import removeActionsCommand from './command/removeActionsCommand';
-
+import moveCommand from './command/moveCommand';
 
 class ArenaWorldService {
   
@@ -13,7 +13,8 @@ class ArenaWorldService {
 
     command = {
         'join': joinCommand,
-        'removeActions': removeActionsCommand
+        'removeActions': removeActionsCommand,
+        'move': moveCommand
     };
 
     buildCommand(message) {

@@ -5,6 +5,7 @@ import EventHandler from '../helper/eventHandler';
 import WaitingScreen from '../gameObject/screen/waitingScreen';
 import WorldField from '../gameObject/worldField';
 import ActionBar from '../gameObject/actionBar';
+import ActionHelper from '../helper/actionHelper';
 
 class WorldState extends Phaser.State {
     
@@ -12,6 +13,7 @@ class WorldState extends Phaser.State {
     userData = UserData.getInstance();
     socket = null;
     eventHandler = null;
+    actionHelper = null;
 
     waitingScreen = null;
     worldField = null;
@@ -21,6 +23,7 @@ class WorldState extends Phaser.State {
         this.socket = new this.api.socket.WorldSocket(this.game.global.worldId,
             this.userData.nickname);
         this.eventHandler = new EventHandler(this.socket, this.userData);
+        this.actionHelper = new ActionHelper(this.socket, this.userData);
         this.waitingScreen = new WaitingScreen(this.game, this.userData.creature,
             this.eventHandler);
         this.waitingScreen.onReady.addOnce(this.createGame, this);
@@ -34,7 +37,7 @@ class WorldState extends Phaser.State {
 
     createGame() {
         this.waitingScreen.destroy();
-        this.worldField = new WorldField(this.game, this.eventHandler);
+        this.worldField = new WorldField(this.game, this.eventHandler, this.actionHelper);
         this.actionBar = new ActionBar(this.game, this.worldField);
     }
 

@@ -17,6 +17,8 @@ class WorldEndpoint extends Endpoint {
             this.logger.info('World[' + worldId + ']: executed: [' + command.type
                 + '] by ' + command.user);
             this.worldService.exec(worldId, command, this.sendStatus);
+        } else {
+            this.logger.error('command can\'t be built', JSON.parse(message));
         }
     }
 

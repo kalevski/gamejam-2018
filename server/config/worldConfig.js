@@ -10,7 +10,7 @@ export default {
                 position: '12x08'
             }
         ],
-        spawn: [{flipped: false, key:'00x00'}, {flipped: true, key:'15x10'}]
+        spawn: [{flipped: false, key:'03x16'}, {flipped: true, key:'58x18'}]
     },
     1: {
         description: 'example text',

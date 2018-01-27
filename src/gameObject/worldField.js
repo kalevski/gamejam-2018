@@ -5,6 +5,7 @@ import Field from '../helper/field';
 class WorldField extends Phaser.Group {
 
     eventHandler = null;
+    actionHelper = null;
 
     background = null;
     player = {};
@@ -12,12 +13,14 @@ class WorldField extends Phaser.Group {
     currentPlayer = null;
     oppositePlayer = null;
     
-    constructor(game, eventHandler) {
+    constructor(game, eventHandler, actionHelper) {
         super(game, game.world, 'worldField');
         this.background = this.create(0, 0, 'ui-world-' + eventHandler.world['type']);
         this.eventHandler = eventHandler;
+        this.actionHelper = actionHelper;
         this.field = new Field(this);
         this.createCharacters();
+        this.createEvents();
     }
 
     createCharacters() {
@@ -38,13 +41,16 @@ class WorldField extends Phaser.Group {
         });
     }
 
-    move(nickname, destinationField) {
-        // if (typeof nickname === 'undefined') {
-        //     nickname = this.eventHandler.userData.nickname;
-        // }
-        // var fieldData = this.player[nickname].getCurrentField();
-        // let path = this.field.getPath(fieldData, destinationField);
-        // this.player[nickname].move(path);
+    createEvents() {
+        this.field.onClick.add((fieldData) => {
+            let path = this.field.getPath(this.player[this.currentPlayer].currentField, 
+                this.field.getFieldData(fieldData.key));
+            this.actionHelper.move(path);
+            this.player[this.currentPlayer].move(path);
+        });
+        this.eventHandler.event.move.add((data) => {
+            this.player[this.oppositePlayer].move(data);
+        });
     }
 }
 

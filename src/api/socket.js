@@ -26,6 +26,10 @@ class Socket {
         }
     }
 
+    send(object) {
+        this.socket.send(JSON.stringify(object));
+    }
+
     close() {
         this.socket.addEventListener('close', () => {});
         this.socket.close();
