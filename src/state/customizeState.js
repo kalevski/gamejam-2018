@@ -130,7 +130,7 @@ class CustomizeState extends Phaser.State {
         this.abilities = [];
         for (let i = 0; i < abilityList.length; i++) {
             let ability = new Ability(this.game, abilityList[i], this.creature.getAbilityData(abilityList[i]));
-            ability.position.set(835 + (i * 90), 130);
+            ability.position.set(925 + (i * 90), 130);
             ability.inputEnabled = true;
             ability.onChildInputDown.add(() => this.showAbilityDescription(i));
             this.abilities.push(ability);

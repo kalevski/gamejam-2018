@@ -37,10 +37,17 @@ class ActionBar extends Phaser.Group {
         this.heartsText = new InfoText(game, this.hearts, 40, true);
         this.heartsText.position.set(1080, 645);
         this.registerEvents();
-        window.actionBar = this;
+        
+        worldField.onGetDiamond.add(() => {
+            this.increaseDiamons();
+        }, this);
     }
 
     registerEvents() {
+
+    }
+
+    fireEvent() {
 
     }
 
@@ -49,9 +56,12 @@ class ActionBar extends Phaser.Group {
             ability.fire();
             this.diamonds -= ability.data;
             this.diamondsText.text = this.diamonds;
-            if (this.diamonds <= ability.data) {
-                ability.alpha = .7;
-            }
+            
+            this.abilityList.forEach((ability) => {
+                if (this.diamonds <= ability.data) {
+                    ability.alpha = .7;
+                }
+            });
         }
     }
 

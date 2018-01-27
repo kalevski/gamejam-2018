@@ -17,8 +17,6 @@ class WorldField extends Phaser.Group {
     currentPlayer = null;
     oppositePlayer = null;
 
-    diamondColor = Math.round(Math.random() * 16777215);
-
     onGetDiamond = new Phaser.Signal();
     
     constructor(game, eventHandler, actionHelper) {
@@ -53,9 +51,11 @@ class WorldField extends Phaser.Group {
 
     createObjects() {
         this.eventHandler.world.objects.forEach((object) => {
-            this.gameObject[object.type] = {};
+            if (typeof this.gameObject[object.type] === 'undefined') {
+                this.gameObject[object.type] = {};
+            }
             this.gameObject[object.type][object.position] = new GameObject(this.game,
-                object.type, object.position, this, this.diamondColor);
+                object.type, object.position, this);
         });
     }
 
@@ -63,18 +63,30 @@ class WorldField extends Phaser.Group {
         this.field.onClick.add((fieldData) => {
             let path = this.field.getPath(this.player[this.currentPlayer].currentField, 
                 this.field.getFieldData(fieldData.key));
-            console.log (fieldData);
             this.actionHelper.move(path);
             this.player[this.currentPlayer].move(path);
-        });
-        this.eventHandler.event.move.add((data) => {
-            this.player[this.oppositePlayer].move(data);
-        });
-
+        }, this);
+        
         this.player[this.currentPlayer].onMove.add((position) => {
             if (typeof this.gameObject['diamond'][position.key] !== 'undefined') {
                 this.onGetDiamond.dispatch();
+                this.actionHelper.removeDiamond(position.key);
+                try {
+                    this.gameObject['diamond'][position.key].destroy();
+                    delete this.gameObject['diamond'][position.key];
+                } catch(e) {}
             }
+        }, this);
+
+        this.eventHandler.event.removeDiamond.add((data) => {
+            try {
+                this.gameObject['diamond'][data.positionKey].destroy();
+                delete this.gameObject['diamond'][data.positionKey];
+            } catch(e) {}
+        }, this);
+
+        this.eventHandler.event.move.add((data) => {
+            this.player[this.oppositePlayer].move(data);
         });
     }
 }

@@ -7,7 +7,8 @@ class WorldEventHandler {
     world = null;
     event = {
         startGame: new Phaser.Signal(),
-        move: new Phaser.Signal()
+        move: new Phaser.Signal(),
+        removeDiamond: new Phaser.Signal()
     }
     
     constructor(worldSocket, userData) {

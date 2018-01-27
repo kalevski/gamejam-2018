@@ -30,7 +30,7 @@ class LobbyState extends Phaser.State {
         var abilityList = this.userData.abilityList;
         for (let i = 0; i < abilityList.length; i++) {
             let ability = new Ability(this.game, abilityList[i], this.creature.getAbilityData(abilityList[i]));
-            ability.position.set(124 + (i * 90), 140);
+            ability.position.set(214 + (i * 90), 140);
             this.abilities.push(ability);
         }
     }
