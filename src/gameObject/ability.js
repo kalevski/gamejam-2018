@@ -10,6 +10,7 @@ class Ability extends Phaser.Group {
     counter = null;
     counterText = null;
     onClick = new Phaser.Signal();
+    onFire = new Phaser.Signal();
 
     constructor(game, index, data) {
         super(game, game.world, 'ui-ability-' + index);
@@ -22,6 +23,10 @@ class Ability extends Phaser.Group {
         this.add(this.counterText);
         this.index = index;
         this.data = data;
+    }
+
+    fire() {
+        this.onFire.dispatch();
     }
 }
 
