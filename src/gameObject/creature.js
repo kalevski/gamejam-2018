@@ -71,13 +71,15 @@ class Creature extends Phaser.Group {
     }
 
     move(path) {
-        let startPoint = path.shift();
-        if (startPoint.x > path[path.length - 1].x && !this.flipped) {
+        if (path[0].x > path[path.length - 1].x && !this.flipped) {
             this.flip();
-        } else if (startPoint.x < path[path.length - 1].x && this.flipped) {
+        } else if (path[0].x < path[path.length - 1].x && this.flipped) {
             this.flip();
         }
-        this.goTo(startPoint);
+        if (this.movement !== null) {
+            this.movement.stop();
+        }
+        this.currentPath = [];
         this.currentPath = path;
         this.chainMovement();
     }
