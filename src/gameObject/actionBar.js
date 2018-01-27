@@ -30,6 +30,7 @@ class ActionBar extends Phaser.Group {
             this.add(this.abilityList[index]);
             this.abilityList[index].alpha = .7;
             this.abilityList[index].onClick.add(() => {this.abilityClicked(this.abilityList[index])});
+            this.abilityList[index].onFire.add(() => this.fireEvent());
         });
         this.diamondsText = new InfoText(game, this.diamonds, 40, true);
         this.diamondsText.position.set(250, 645);
@@ -70,8 +71,6 @@ class ActionBar extends Phaser.Group {
             }
         });
     }
-
-
 }
 
 export default ActionBar;

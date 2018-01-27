@@ -90,7 +90,7 @@ class Creature extends Phaser.Group {
         this.movement = this.game.add.tween(this).to({
             x: fieldData.x,
             y: fieldData.y - 55
-        }, 200, Phaser.Easing.Linear.InOut, true);
+        }, 150, Phaser.Easing.Linear.InOut, true);
         this.currentField = fieldData;
         this.movement.onComplete.addOnce(() => this.chainMovement(), this);
     }

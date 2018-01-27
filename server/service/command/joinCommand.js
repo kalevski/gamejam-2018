@@ -35,6 +35,9 @@ export default (user, data, world) => {
                 type: 'startGame',
                 data: out.world.user[out.world.userList[0]].data.creature
             });
+
+            out.world.objects = worldConfig[out.world.type].objects;
+
             out.world.ready = true;
             out.status.send = true;
         }

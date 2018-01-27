@@ -25,7 +25,7 @@ class Field {
                 key += j < 10 ? '0' + j : j + '';
                 this.field[key] = group.create(offsetX + i * 20,
                     offsetY + j * 20, 'ui-pixel');
-                this.field[key].alpha = 1;
+                this.field[key].alpha = .2;
                 this.field[key].inputEnabled = true;
                 let fieldData = {
                     x: this.field[key].position.x + 10,
