@@ -7,6 +7,13 @@ class WorldField extends Phaser.Group {
 
     game = null;
 
+    exec = {
+        placeMine: new Phaser.Signal(),
+        placePortal: new Phaser.Signal(),
+        placeRock: new Phaser.Signal(),
+        ocupateAntena: new Phaser.Signal()
+    };
+
     eventHandler = null;
     actionHelper = null;
 
@@ -25,9 +32,11 @@ class WorldField extends Phaser.Group {
         this.background = this.create(0, 0, 'ui-world-' + eventHandler.world['type']);
         this.eventHandler = eventHandler;
         this.actionHelper = actionHelper;
-        this.field = new Field(this);
-        this.createCharacters();
+        this.field = new Field();
+        this.field.pushDeadFields(this.eventHandler.world.deadFields);
+        this.field.createGrid(this);
         this.createObjects();
+        this.createCharacters();
         this.createEvents();
     }
 
@@ -76,6 +85,7 @@ class WorldField extends Phaser.Group {
                     delete this.gameObject['diamond'][position.key];
                 } catch(e) {}
             }
+            this.sortObjects();
         }, this);
 
         this.eventHandler.event.removeDiamond.add((data) => {
@@ -88,6 +98,30 @@ class WorldField extends Phaser.Group {
         this.eventHandler.event.move.add((data) => {
             this.player[this.oppositePlayer].move(data);
         });
+
+        this.exec.ocupateAntena.add(() => {
+            console.log('ocupateArena');
+        }, this);
+
+        this.exec.placeMine.add(() => {
+            console.log('place mine');
+        }, this);
+
+        this.exec.placeRock.add(() => {
+            console.log('place rock')
+        }, this);
+
+        this.exec.placePortal.add(() => {
+            console.log('place portal');
+        }, this);
+    }
+
+    sortObjects() {
+        this.game.world.customSort((firstChild, secondChild) => {
+            if (firstChild.y > secondChild.y) return 1;
+            else if (firstChild.y < secondChild.y) return -1;
+            else return 0;
+        }, this);
     }
 }
 

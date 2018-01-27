@@ -15,10 +15,11 @@ class Field {
     };
 
     onClick = new Phaser.Signal();
-
-    constructor(group) {
-        this.createGrid(group);
-        this.createGraph();
+    
+    pushDeadFields(deadFieldsArray) {
+        for (let deadField of deadFieldsArray) {
+            this.deadField[deadField] = 1;
+        }
     }
 
     createGrid(group) {
@@ -49,6 +50,7 @@ class Field {
                 }, this);
             }
         }
+        this.createGraph();
     }
 
     createGraph() {
@@ -117,6 +119,9 @@ class Field {
     }
 
     getPath(startField, endField) {
+        if (typeof this.deadField[endField.key] !== 'undefined') {
+            return [startField];
+        }
         let path = [];
         let pathKeys = this.graph.findShortestPath(startField.key, endField.key);
         

@@ -22,6 +22,42 @@ class ActionHelper {
             }
         });
     }
+
+    ocupateAntena() {
+        this.worldSocket.send('pushAction', this.userData.nickname, {
+            type: 'ocupateAntena',
+            data: {
+                antena: '0'
+            }
+        });
+    }
+
+    placeRock(positionKey) {
+        this.worldSocket.send('pushAction', this.userData.nickname, {
+            type: 'placeRock',
+            data: {
+                positionKey: positionKey
+            }
+        });
+    }
+
+    placeMine(positionKey) {
+        this.worldSocket.send('pushAction', this.userData.nickname, {
+            type: 'placeMine',
+            data: {
+                positionKey: positionKey
+            }
+        });
+    }
+
+    placePortal(positionKey) {
+        this.worldSocket.send('pushAction', this.userData.nickname, {
+            type: 'placePortal',
+            data: {
+                positionKey: positionKey
+            }
+        });
+    }
 }
 
 export default ActionHelper;

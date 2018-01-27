@@ -31,7 +31,7 @@ class Api {
         }
 
         env['INSTANCE_TYPE'] = 'router';
-        for (let i = 0; i < 1; i++) { // os.cpus().length
+        for (let i = 0; i < 1; i++) { 
             env['INSTANCE_ID'] = i;
             env['ROOT'] = __dirname;
             cluster.fork(env);

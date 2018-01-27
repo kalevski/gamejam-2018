@@ -117,7 +117,7 @@ class CustomizeState extends Phaser.State {
             body: this.selected['body'],
             color: this.palette[this.selected['color']]
         });
-        this.creature.position.set(1010, 400);
+        this.creature.position.set(1010, 525);
     }
 
     drawAbilities() {

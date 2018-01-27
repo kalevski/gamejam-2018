@@ -8,6 +8,7 @@ class ActionBar extends Phaser.Group {
     userData = UserData.getInstance();
     actionHelper = null;
     eventHandler = null;
+    worldField = null;
 
     background = null;
     abilityList = [];
@@ -21,6 +22,7 @@ class ActionBar extends Phaser.Group {
         super(game, game.world, 'actionBar');
         this.actionHelper = actionHelper;
         this.eventHandler = eventHandler;
+        this.worldField = worldField;
         this.background = this.create(0, 0, 'ui-action-bar-bg');
         this.position.set(0, 590);
         this.userData.abilityList.forEach((abilityIndex, index) => {
@@ -30,7 +32,7 @@ class ActionBar extends Phaser.Group {
             this.add(this.abilityList[index]);
             this.abilityList[index].alpha = .7;
             this.abilityList[index].onClick.add(() => {this.abilityClicked(this.abilityList[index])});
-            this.abilityList[index].onFire.add(() => this.fireEvent());
+            this.abilityList[index].onFire.add(() => this.fireEvent(this.abilityList[index]));
         });
         this.diamondsText = new InfoText(game, this.diamonds, 40, true);
         this.diamondsText.position.set(250, 645);
@@ -47,8 +49,16 @@ class ActionBar extends Phaser.Group {
 
     }
 
-    fireEvent() {
-
+    fireEvent(ability) {
+        if (ability.index === 0) {
+            this.worldField.exec.ocupateAntena.dispatch();
+        } else if (ability.index === 1) {
+            this.worldField.exec.placeMine.dispatch();
+        } else if (ability.index === 2) {
+            this.worldField.exec.placeRock.dispatch();
+        } else if (ability.index === 3) {
+            this.worldField.exec.placePortal.dispatch();
+        }
     }
 
     abilityClicked(ability) {

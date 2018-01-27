@@ -25,12 +25,12 @@ class Creature extends Phaser.Group {
         this.config = creatureConfig[data['head'] + 'x' + data['body']];
 
         this.bodyCoreSprite = this.create(0, 0, 'creature-body-' + data['body'] + '-core');
-        this.bodyCoreSprite.anchor.set(.5);
+        this.bodyCoreSprite.anchor.set(.5, 1);
         this.bodyDecoratorSprite = this.create(0, 0, 'creature-body-' + data['body'] + '-decorator');
-        this.bodyDecoratorSprite.anchor.set(.5);
+        this.bodyDecoratorSprite.anchor.set(.5, 1);
         this.bodyDecoratorSprite.tint = data['color'];
         this.headSprite = this.create(0, 0, 'creature-head-' + data['head']);
-        this.headSprite.anchor.set(.5);
+        this.headSprite.anchor.set(.5, 1);
     
         if (small) {
             this.bodyCoreSprite.scale.set(.5);
@@ -64,7 +64,7 @@ class Creature extends Phaser.Group {
         }
         this.currentField = fieldData;
         this.currentPath = [];
-        this.position.set(fieldData.x, fieldData.y - 55);
+        this.position.set(fieldData.x, fieldData.y);
     }
 
     flip() {
@@ -89,13 +89,16 @@ class Creature extends Phaser.Group {
     chainMovement() {
         let fieldData = this.currentPath.shift();
         if (typeof fieldData === 'undefined') return;
-        this.onMove.dispatch(this.currentField);
         this.movement = this.game.add.tween(this).to({
             x: fieldData.x,
-            y: fieldData.y - 55
+            y: fieldData.y
         }, 150, Phaser.Easing.Linear.InOut, true);
         this.currentField = fieldData;
-        this.movement.onComplete.addOnce(() => this.chainMovement(), this);
+        this.movement.onComplete.addOnce(() => {
+            this.onMove.dispatch(this.currentField);
+            this.chainMovement();
+        }, this);
+
     }
 }
 
