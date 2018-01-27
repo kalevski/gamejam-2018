@@ -56,6 +56,13 @@ class LoadingState extends Phaser.State {
         this.game.load.image('creature-head-1', 'assets/creature/head-1.png');
         this.game.load.image('creature-head-2', 'assets/creature/head-2.png');
         this.game.load.image('creature-head-3', 'assets/creature/head-3.png');
+        
+        this.game.load.image('ui-object-antena', 'assets/ui/object/antena.png');
+        this.game.load.image('ui-object-diamond', 'assets/ui/object/diamond.png');
+        this.game.load.image('ui-object-mine', 'assets/ui/object/mine.png');
+        this.game.load.image('ui-object-rock', 'assets/ui/object/rock.png');
+        this.game.load.image('ui-object-trap', 'assets/ui/object/trap.png');
+
 
         this.game.load.onFileComplete.add(this.fileComplete, this);
         this.game.load.onLoadComplete.addOnce(this.loadComplete, this);

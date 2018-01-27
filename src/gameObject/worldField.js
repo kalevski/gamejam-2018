@@ -45,6 +45,7 @@ class WorldField extends Phaser.Group {
         this.field.onClick.add((fieldData) => {
             let path = this.field.getPath(this.player[this.currentPlayer].currentField, 
                 this.field.getFieldData(fieldData.key));
+            console.log (fieldData);
             this.actionHelper.move(path);
             this.player[this.currentPlayer].move(path);
         });
