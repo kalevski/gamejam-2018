@@ -1,26 +1,27 @@
 import Phaser from '../phaser';
-import abilityConfig from '../config/abilityConfig';
+import InfoText from '../gameObject/infoText';
 
-class Ability extends Phaser.Sprite {
+class Ability extends Phaser.Group {
     
     index = null;
     data = null;
-    config = null;
+
+    bg = null;
+    counter = null;
+    counterText = null;
+    onClick = new Phaser.Signal();
 
     constructor(game, index, data) {
-        super(game, 0, 0, 'ui-ability-' + index);
-        game.world.addChild(this);
+        super(game, game.world, 'ui-ability-' + index);
+        this.bg = this.create(0, 0, 'ui-ability-' + index);
+        this.bg.inputEnabled = true;
+        this.bg.events.onInputDown.add(() => this.onClick.dispatch());
+        this.counter = this.create(25, 55, 'ui-ability-counter');
+        this.counterText = new InfoText(game, data, 18, true);
+        this.counterText.position.set(35, 57);
+        this.add(this.counterText);
         this.index = index;
         this.data = data;
-        this.config = abilityConfig[index];
-    }
-
-    getDescription() {
-        return this.config['description'];
-    }
-
-    fire(grid) {
-        // call ability helper and after that if is valid return data else return message
     }
 }
 

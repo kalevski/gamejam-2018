@@ -1,8 +1,6 @@
 import Phaser from '../phaser';
 import Creature from '../gameObject/creature';
 import Ability from '../gameObject/ability';
-import InfoText from '../gameObject/infoText';
-
 import UserService from '../service/userService';
 
 class CustomizeState extends Phaser.State {
@@ -36,9 +34,6 @@ class CustomizeState extends Phaser.State {
         this.play = this.game.add.sprite(885, 610, 'ui-customize-play');
         this.play.inputEnabled = true;
         this.play.events.onInputDown.add(() => {this.playButton()});
-        
-        this.abilityDescription = new InfoText(this.game, '');
-        this.abilityDescription.position.set(840, 225);
 
         this.creature = null;
         this.abilities = null;
@@ -46,13 +41,15 @@ class CustomizeState extends Phaser.State {
         this.head = [
             this.game.add.sprite(15, 200, 'ui-customize-head-0'),
             this.game.add.sprite(105, 200, 'ui-customize-head-1'),
-            this.game.add.sprite(195, 200, 'ui-customize-head-2')
+            this.game.add.sprite(195, 200, 'ui-customize-head-2'),
+            this.game.add.sprite(285, 200, 'ui-customize-head-3')
         ];
 
         this.body = [
             this.game.add.sprite(15, 380, 'ui-customize-body-0'),
             this.game.add.sprite(105, 380, 'ui-customize-body-1'),
-            this.game.add.sprite(195, 380, 'ui-customize-body-2')
+            this.game.add.sprite(195, 380, 'ui-customize-body-2'),
+            this.game.add.sprite(285, 380, 'ui-customize-body-3')
         ];
 
         this.color = [
@@ -135,13 +132,9 @@ class CustomizeState extends Phaser.State {
             let ability = new Ability(this.game, abilityList[i], this.creature.getAbilityData(abilityList[i]));
             ability.position.set(835 + (i * 90), 130);
             ability.inputEnabled = true;
-            ability.events.onInputDown.add(() => this.showAbilityDescription(i));
+            ability.onChildInputDown.add(() => this.showAbilityDescription(i));
             this.abilities.push(ability);
         }
-    }
-
-    showAbilityDescription(index) {
-        this.abilityDescription.text = this.abilities[index].getDescription();
     }
 
     validChoice() {

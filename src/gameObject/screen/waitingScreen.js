@@ -19,6 +19,7 @@ class WaitingScreen extends Phaser.Group {
         worldEventHandler.event.startGame.addOnce((data) => {
             this.player2 = new Creature(game, data);
             this.player2.position.set(1060, 300);
+            this.player2.flip();
             setTimeout(() => {
                 this.onReady.dispatch();
             }, 5000);

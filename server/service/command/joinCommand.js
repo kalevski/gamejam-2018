@@ -16,7 +16,8 @@ export default (user, data, world) => {
         out.world.user[user] = {
             data: data,
             game: {
-                position: worldConfig[out.world.type].spawn[out.world.connected - 1]
+                flipped: worldConfig[out.world.type].spawn[out.world.connected - 1].flipped,
+                spawn: worldConfig[out.world.type].spawn[out.world.connected - 1].key
             },
             actions: []
         };
