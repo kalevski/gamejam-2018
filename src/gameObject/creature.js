@@ -10,6 +10,9 @@ class Creature extends Phaser.Group {
 
     config = null;
 
+    currentField = null;
+    currentPath = null;
+
     constructor(game, data, small) {
         super(game, game.world, 'creature');
         
@@ -44,6 +47,22 @@ class Creature extends Phaser.Group {
 
     getAbilityData(abilityIndex) {
         return this.config['data'][abilityIndex];
+    }
+
+    getCurrentField() {
+        return this.currentField;
+    }
+
+    goTo(fieldData) {
+        this.position.set(fieldData.x, fieldData.y - 55);
+    }
+
+    flip() {
+        this.scale.x *= -1;
+    }
+
+    move(path) {
+
     }
 }
 

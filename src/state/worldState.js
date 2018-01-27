@@ -1,11 +1,10 @@
 import Phaser from '../phaser';
 import Api from '../api';
 import UserData from '../helper/userData';
-import WorldEventHandler from '../helper/worldEventHandler';
+import EventHandler from '../helper/eventHandler';
 import WaitingScreen from '../gameObject/screen/waitingScreen';
 import WorldField from '../gameObject/worldField';
 import ActionBar from '../gameObject/actionBar';
-
 
 class WorldState extends Phaser.State {
     
@@ -21,7 +20,7 @@ class WorldState extends Phaser.State {
     init() {
         this.socket = new this.api.socket.WorldSocket(this.game.global.worldId,
             this.userData.nickname);
-        this.eventHandler = new WorldEventHandler(this.socket, this.userData);
+        this.eventHandler = new EventHandler(this.socket, this.userData);
         this.waitingScreen = new WaitingScreen(this.game, this.userData.creature,
             this.eventHandler);
         this.waitingScreen.onReady.addOnce(this.createGame, this);
