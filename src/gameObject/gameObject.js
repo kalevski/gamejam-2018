@@ -2,10 +2,13 @@ import Phaser from '../phaser';
 
 class GameObject extends Phaser.Sprite {
     
+    positionKey = null;
+
     constructor(game, type, positionKey, worldField, diamondColor) {
         super(game, 0, 0, 'ui-object-' + type);
         this.anchor.set(.5);
         let position = worldField.field.getFieldData(positionKey);
+        this.positionKey = positionKey;
         this.position.set(position.x, position.y);
         game.world.addChild(this);
         if (type === 'diamond') {

@@ -19,14 +19,12 @@ class CustomizeState extends Phaser.State {
         };
 
         this.palette = {
-            0: 0xffffff,
-            1: 0xf44336,
-            2: 0x9c27b0,
-            3: 0x212121,
-            4: 0x00bcd4,
-            5: 0xffc107,
-            6: 0xff5722,
-            7: 0x5d4037
+            0: 0xd96868,
+            1: 0x68a5d9,
+            2: 0x75d968,
+            3: 0xd9c868,
+            4: 0xfe5400,
+            5: 0x9936ff
         };
 
         this.background = this.game.add.sprite(0, 0, 'ui-customize-state-bg');

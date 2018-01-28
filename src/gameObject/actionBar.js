@@ -40,9 +40,13 @@ class ActionBar extends Phaser.Group {
         this.heartsText.position.set(1080, 645);
         this.registerEvents();
         
-        worldField.onGetDiamond.add(() => {
-            this.increaseDiamons();
+        worldField.onGetDiamond.add((no) => {
+            this.increaseDiamons(no);
         }, this);
+
+        worldField.onLooseHeart.add(() => {
+            this.decreaseHearts();
+        });
     }
 
     registerEvents() {
@@ -68,7 +72,7 @@ class ActionBar extends Phaser.Group {
             this.diamondsText.text = this.diamonds;
             
             this.abilityList.forEach((ability) => {
-                if (this.diamonds <= ability.data) {
+                if (this.diamonds < ability.data) {
                     ability.alpha = .7;
                 }
             });
@@ -78,12 +82,12 @@ class ActionBar extends Phaser.Group {
     decreaseHearts() {
         this.hearts--;
         if (this.hearts === 0) {
-            this.onGameOver.dispatch(this.userData.nickname);
+            this.worldField.exec.endGame.dispatch();
         }
     }
 
-    increaseDiamons() {
-        this.diamonds++;
+    increaseDiamons(no = 1) {
+        this.diamonds += no;
         this.diamondsText.text = this.diamonds;
         this.abilityList.forEach((ability) => {
             if (this.diamonds >= ability.data) {

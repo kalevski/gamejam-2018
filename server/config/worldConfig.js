@@ -5,6 +5,12 @@ export default {
         description: 'example text',
         deadFields: ['35x07', '50x10', '51x10', '52x10', '53x11', '54x11', '55x11',
             '06x07', '07x07', '08x07', '08x08', '09x08'],
+        antena1Fields: ['01x09', '02x09', '03x09', '04x09', '05x09', '01x10',
+         '02x10', '03x10', '04x10', '05x10'],
+        antena2Fields: ['56x09', '57x09', '58x09', '59x09', '60x09', '56x10',
+        '57x10', '58x10', '59x10', '60x10'],
+        antena1: '03x09',
+        antena2: '58x09',
         objects: [
             {type: 'antena', position: '03x09'},
             {type: 'antena', position: '58x09'},

@@ -8,7 +8,11 @@ class WorldEventHandler {
     event = {
         startGame: new Phaser.Signal(),
         move: new Phaser.Signal(),
-        removeDiamond: new Phaser.Signal()
+        removeDiamond: new Phaser.Signal(),
+        ocupateAntena: new Phaser.Signal(),
+        placeMine: new Phaser.Signal(),
+        placeRock: new Phaser.Signal(),
+        mineExplode: new Phaser.Signal()
     }
     
     constructor(worldSocket, userData) {
