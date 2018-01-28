@@ -28,7 +28,7 @@ var Storage = function Storage() {
         _this.logger.error('Caching System: ' + err);
     };
 
-    this.client = _redis2.default.createClient();
+    this.client = _redis2.default.createClient(process.env.REDIS_URL);
     this.client.on('error', this._onError);
 };
 

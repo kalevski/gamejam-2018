@@ -51,6 +51,9 @@ class Api {
     }
 
     checkMachine() {
+        if (process.env.NPM_CONFIG_PRODUCTION) {
+            return true;
+        }
         if (!shell.which('mysql')) {
             this.logger.error('You need to install MySQL to run this app');
         } else if (!shell.which('redis-cli')) {

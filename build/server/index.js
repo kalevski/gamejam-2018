@@ -86,6 +86,9 @@ var Api = function () {
     }, {
         key: 'checkMachine',
         value: function checkMachine() {
+            if (process.env.NPM_CONFIG_PRODUCTION) {
+                return true;
+            }
             if (!_shelljs2.default.which('mysql')) {
                 this.logger.error('You need to install MySQL to run this app');
             } else if (!_shelljs2.default.which('redis-cli')) {
