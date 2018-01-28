@@ -44,7 +44,9 @@ var Api = function () {
 
         this.logger = _logger2.default.getInstance();
 
-        process.env = _config4.default;
+        process.env['WEBAPP_INDEX'] = _config4.default.WEBAPP_INDEX;
+        process.env['WEBAPP_STATIC'] = _config4.default.WEBAPP_STATIC;
+        process.env['WEBAPP_ASSETS'] = _config4.default.WEBAPP_ASSETS;
         new _router2.default();
         // if (cluster.isMaster) {
         //     if (this.checkMachine()) {

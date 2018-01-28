@@ -13,7 +13,9 @@ class Api {
     logger = Logger.getInstance();
 
     constructor() {
-        process.env = PROD_CONFIG;
+        process.env['WEBAPP_INDEX'] = PROD_CONFIG.WEBAPP_INDEX;
+        process.env['WEBAPP_STATIC'] = PROD_CONFIG.WEBAPP_STATIC;
+        process.env['WEBAPP_ASSETS'] = PROD_CONFIG.WEBAPP_ASSETS;
         new Router();
         // if (cluster.isMaster) {
         //     if (this.checkMachine()) {
