@@ -13,6 +13,7 @@ class Api {
     logger = Logger.getInstance();
 
     constructor() {
+        process.env = PROD_CONFIG;
         new Router();
         // if (cluster.isMaster) {
         //     if (this.checkMachine()) {
