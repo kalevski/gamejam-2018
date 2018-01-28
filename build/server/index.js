@@ -44,6 +44,7 @@ var Api = function () {
 
         this.logger = _logger2.default.getInstance();
 
+        process.env = _config4.default;
         new _router2.default();
         // if (cluster.isMaster) {
         //     if (this.checkMachine()) {
