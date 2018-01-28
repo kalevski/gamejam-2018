@@ -13,13 +13,14 @@ class Api {
     logger = Logger.getInstance();
 
     constructor() {
-        if (cluster.isMaster) {
-            if (this.checkMachine()) {
-                this.master();
-            }
-        } else {
-            this.slave();
-        }
+        new Router();
+        // if (cluster.isMaster) {
+        //     if (this.checkMachine()) {
+        //         this.master();
+        //     }
+        // } else {
+        //     this.slave();
+        // }
     }
 
     master() {
