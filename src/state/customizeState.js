@@ -39,28 +39,26 @@ class CustomizeState extends Phaser.State {
         this.abilities = null;
 
         this.head = [
-            this.game.add.sprite(15, 200, 'ui-customize-head-0'),
-            this.game.add.sprite(105, 200, 'ui-customize-head-1'),
-            this.game.add.sprite(195, 200, 'ui-customize-head-2'),
-            this.game.add.sprite(285, 200, 'ui-customize-head-3')
+            this.game.add.sprite(50, 200, 'ui-customize-head-0'),
+            this.game.add.sprite(150, 200, 'ui-customize-head-1'),
+            this.game.add.sprite(250, 200, 'ui-customize-head-2'),
+            this.game.add.sprite(350, 200, 'ui-customize-head-3')
         ];
 
         this.body = [
-            this.game.add.sprite(15, 380, 'ui-customize-body-0'),
-            this.game.add.sprite(105, 380, 'ui-customize-body-1'),
-            this.game.add.sprite(195, 380, 'ui-customize-body-2'),
-            this.game.add.sprite(285, 380, 'ui-customize-body-3')
+            this.game.add.sprite(50, 380, 'ui-customize-body-0'),
+            this.game.add.sprite(150, 380, 'ui-customize-body-1'),
+            this.game.add.sprite(250, 380, 'ui-customize-body-2'),
+            this.game.add.sprite(350, 380, 'ui-customize-body-3')
         ];
 
         this.color = [
-            this.game.add.sprite(15, 560, 'ui-customize-color'),
-            this.game.add.sprite(105, 560, 'ui-customize-color'),
-            this.game.add.sprite(195, 560, 'ui-customize-color'),
-            this.game.add.sprite(285, 560, 'ui-customize-color'),
-            this.game.add.sprite(375, 560, 'ui-customize-color'),
-            this.game.add.sprite(465, 560, 'ui-customize-color'),
-            this.game.add.sprite(555, 560, 'ui-customize-color'),
-            this.game.add.sprite(645, 560, 'ui-customize-color')
+            this.game.add.sprite(50, 560, 'ui-customize-color'),
+            this.game.add.sprite(150, 560, 'ui-customize-color'),
+            this.game.add.sprite(250, 560, 'ui-customize-color'),
+            this.game.add.sprite(350, 560, 'ui-customize-color'),
+            this.game.add.sprite(450, 560, 'ui-customize-color'),
+            this.game.add.sprite(550, 560, 'ui-customize-color')
         ];
 
         for (let i = 0; i < this.head.length; i++) {
