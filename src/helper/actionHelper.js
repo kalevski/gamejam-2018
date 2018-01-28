@@ -23,27 +23,42 @@ class ActionHelper {
         });
     }
 
-    ocupateAntena() {
+    ocupateAntena(positionKey, color) {
         this.worldSocket.send('pushAction', this.userData.nickname, {
             type: 'ocupateAntena',
             data: {
-                antena: '0'
+                positionKey: positionKey,
+                color: color
             }
         });
     }
 
-    placeRock(positionKey) {
+    placeRock(positionKey, deadFields, goToField) {
         this.worldSocket.send('pushAction', this.userData.nickname, {
             type: 'placeRock',
             data: {
-                positionKey: positionKey
+                positionKey: positionKey,
+                nickname: this.userData.nickname,
+                deadFields: deadFields,
+                goToField: goToField
             }
         });
     }
 
-    placeMine(positionKey) {
+    placeMine(positionKey, mineFields) {
         this.worldSocket.send('pushAction', this.userData.nickname, {
             type: 'placeMine',
+            data: {
+                positionKey: positionKey,
+                nickname: this.userData.nickname,
+                mineFields: mineFields
+            }
+        });
+    }
+
+    mineExplode(positionKey) {
+        this.worldSocket.send('pushAction', this.userData.nickname, {
+            type: 'mineExplode',
             data: {
                 positionKey: positionKey
             }
@@ -54,7 +69,8 @@ class ActionHelper {
         this.worldSocket.send('pushAction', this.userData.nickname, {
             type: 'placePortal',
             data: {
-                positionKey: positionKey
+                positionKey: positionKey,
+                nickname: this.userData.nickname
             }
         });
     }

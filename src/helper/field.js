@@ -7,6 +7,7 @@ class Field {
     fieldData = {};
     fieldArray = [];
     deadField = {};
+    deadFieldsArray = [];
     graph = null;
 
     offset = {
@@ -17,6 +18,7 @@ class Field {
     onClick = new Phaser.Signal();
     
     pushDeadFields(deadFieldsArray) {
+        this.deadFieldsArray = this.deadFieldsArray.concat(deadFieldsArray);
         for (let deadField of deadFieldsArray) {
             this.deadField[deadField] = 1;
         }
@@ -35,6 +37,9 @@ class Field {
                 this.field[key] = group.create(offsetX + i * 20,
                     offsetY + j * 20, 'ui-pixel');
                 this.field[key].alpha = .2;
+                if (this.deadField[key] === 1) {
+                    this.field[key].tint = 0xff0000;
+                }
                 this.field[key].inputEnabled = true;
                 let fieldData = {
                     x: this.field[key].position.x + 10,
@@ -131,8 +136,30 @@ class Field {
         return path;
     }
 
+    getNearField(key, horizontal = 1, vertical = 1) {
+        let fieldData = this.getFieldData(key);
+        let i = fieldData.fieldX + horizontal;
+        let j = fieldData.fieldY + vertical;
+        let newKey = i < 10 ? '0' + i : i + '';
+        newKey += 'x';
+        newKey += j < 10 ? '0' + j : j + '';
+        if (this.deadField[newKey] !== 1) {
+            return newKey;
+        } else {
+            return null;
+        }
+    }
+
     getFieldData(key) {
         return typeof this.fieldData[key] === 'undefined' ? null : this.fieldData[key];
+    }
+
+    destroy() {
+        for (let i = 0; i < this.fieldArray.length; i++) {
+            for (let j = 0; j < this.fieldArray[i].length; j++) {
+                this.field[this.fieldArray[i][j].key].destroy();
+            }
+        }
     }
 }
 
