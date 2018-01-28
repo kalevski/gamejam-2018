@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "main": "server/index.js",
   "scripts": {
-    "start": "npm-run-all --parallel server client",
-    "app": "node build/server",
-    "app:build": "npm install && npm-run-all client:build server:build && mkdir build/log",
+    "start": "node build/server",
+    "dev": "npm-run-all --parallel server client",
+    "build": "npm install && npm-run-all client:build server:build && mkdir build/log",
     "test": "react-scripts test --env=jsdom --coverage && eslint src && eslint server",
     "server": "npm-run-all client:build server:run ",
     "server:run": "nodemon -w server --exec \"ENV=DEV babel-node server --presets es2015,stage-0\"",

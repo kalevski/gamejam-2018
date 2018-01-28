@@ -7,7 +7,7 @@ class Storage {
     logger = Logger.getInstance();
 
     constructor() {
-        this.client = redis.createClient();
+        this.client = redis.createClient(process.env.REDIS_URL);
         this.client.on('error', this._onError);
     }
 
