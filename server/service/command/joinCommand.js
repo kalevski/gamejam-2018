@@ -37,6 +37,10 @@ export default (user, data, world) => {
             });
 
             out.world.objects = worldConfig[out.world.type].objects;
+            out.world.antena1Fields = worldConfig[out.world.type].antena1Fields;
+            out.world.antena2Fields = worldConfig[out.world.type].antena2Fields;
+            out.world.antena1 = worldConfig[out.world.type].antena1;
+            out.world.antena2 = worldConfig[out.world.type].antena2;
 
             out.world.ready = true;
             out.status.send = true;
