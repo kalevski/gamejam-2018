@@ -47,6 +47,7 @@ var Api = function () {
         process.env['WEBAPP_INDEX'] = _config4.default.WEBAPP_INDEX;
         process.env['WEBAPP_STATIC'] = _config4.default.WEBAPP_STATIC;
         process.env['WEBAPP_ASSETS'] = _config4.default.WEBAPP_ASSETS;
+        process.env['ROOT'] = __dirname;
         new _router2.default();
         // if (cluster.isMaster) {
         //     if (this.checkMachine()) {

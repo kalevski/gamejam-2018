@@ -16,6 +16,7 @@ class Api {
         process.env['WEBAPP_INDEX'] = PROD_CONFIG.WEBAPP_INDEX;
         process.env['WEBAPP_STATIC'] = PROD_CONFIG.WEBAPP_STATIC;
         process.env['WEBAPP_ASSETS'] = PROD_CONFIG.WEBAPP_ASSETS;
+        process.env['ROOT'] = __dirname;
         new Router();
         // if (cluster.isMaster) {
         //     if (this.checkMachine()) {
