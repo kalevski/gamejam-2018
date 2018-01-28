@@ -36,7 +36,7 @@ class Field {
                 key += j < 10 ? '0' + j : j + '';
                 this.field[key] = group.create(offsetX + i * 20,
                     offsetY + j * 20, 'ui-pixel');
-                this.field[key].alpha = .2;
+                this.field[key].alpha = 0;
                 if (this.deadField[key] === 1) {
                     this.field[key].tint = 0xff0000;
                 }

@@ -14,7 +14,7 @@ class LobbyState extends Phaser.State {
 
         this.background = this.game.add.sprite(0, 0, 'ui-lobby-state-bg');
         this.creature = new Creature(this.game, this.userData.creature);
-        this.creature.position.set(640, 525);
+        this.creature.position.set(640, 425);
 
         this.play = this.game.add.sprite(805, 350, 'ui-lobby-play');
         this.play.inputEnabled = true;

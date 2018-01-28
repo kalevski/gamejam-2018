@@ -1,12 +1,23 @@
 import Phaser from '../../phaser';
-import Creature from '../creature';
 import InfoText from '../infoText';
 
 class GameOverScreen extends Phaser.Group {
 
-    constructor(game, data, worldEventHandler) {
+    onExit = new Phaser.Signal();
+
+    constructor(game, winner) {
         super(game, game.world, 'gameOverScreen');
-        
+        this.text = new InfoText(game, '', 60, true);
+        if (winner) {
+            this.text.text = "YOU WIN!";
+        } else {
+            this.text.text = "YOU LOSE!";
+        }
+        this.text.anchor.set(.5);
+        this.text.position.set(game.world.centerX, game.world.centerY);
+        setTimeout(() => {
+            this.onExit.dispatch();
+        }, 3000);
     }
 
     destroy() {
@@ -14,4 +25,4 @@ class GameOverScreen extends Phaser.Group {
     }
 }
 
-export default WaitingScreen;
+export default GameOverScreen;

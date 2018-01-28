@@ -38,6 +38,10 @@ class WorldState extends Phaser.State {
     createGame() {
         this.waitingScreen.destroy();
         this.worldField = new WorldField(this.game, this.eventHandler, this.actionHelper);
+        this.worldField.closeSocket.add(() => {
+            this.socket.close();
+            this.state.start('lobby');
+        }, this);
         this.actionBar = new ActionBar(this.game, this.worldField);
     }
 

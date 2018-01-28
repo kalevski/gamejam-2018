@@ -8,7 +8,9 @@ class LoadingState extends Phaser.State {
         this.logo = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'ui-logo');
         this.logo.anchor.setTo(.5);
         
-        this.progress = this.game.add.text(this.game.world.centerX, this.game.world.height - 50, "0%");
+        this.progress = this.game.add.text(this.game.world.centerX, this.game.world.height - 50, "0%", {
+            fill: '#ffffff'
+        });
         this.progress.anchor.setTo(0.5);
         this.progress.font = 'Oswald';
         this.progress.fontSize = 60;
@@ -30,7 +32,6 @@ class LoadingState extends Phaser.State {
         this.game.load.image('ui-ability-0', 'assets/ui/ability/ability-0.png');
         this.game.load.image('ui-ability-1', 'assets/ui/ability/ability-1.png');
         this.game.load.image('ui-ability-2', 'assets/ui/ability/ability-2.png');
-        this.game.load.image('ui-ability-3', 'assets/ui/ability/ability-3.png');
         this.game.load.image('ui-ability-counter', 'assets/ui/ability/counter.png');
 
         this.game.load.image('ui-lobby-state-bg', 'assets/ui/lobby-state-bg.jpg');
@@ -43,6 +44,7 @@ class LoadingState extends Phaser.State {
         this.game.load.image('ui-world-state-waiting-bg', 'assets/ui/world-state-waiting-bg.png');
         this.game.load.image('ui-world-0', 'assets/ui/world/world-0.jpg');
         this.game.load.image('ui-world-1', 'assets/ui/world/world-1.jpg');
+        this.game.load.image('ui-world-2', 'assets/ui/world/world-2.jpg');
 
         this.game.load.image('creature-body-0-core', 'assets/creature/body-0-core.png');
         this.game.load.image('creature-body-0-decorator', 'assets/creature/body-0-decorator.png');
@@ -61,7 +63,8 @@ class LoadingState extends Phaser.State {
         this.game.load.image('ui-object-diamond', 'assets/ui/object/diamond.png');
         this.game.load.image('ui-object-mine', 'assets/ui/object/mine.png');
         this.game.load.image('ui-object-rock', 'assets/ui/object/rock.png');
-        this.game.load.image('ui-object-trap', 'assets/ui/object/trap.png');
+
+        this.game.load.spritesheet('explosion', 'assets/ui/animation/explosion.png', 64, 64, 32);
 
 
         this.game.load.onFileComplete.add(this.fileComplete, this);

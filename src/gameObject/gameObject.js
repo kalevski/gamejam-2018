@@ -12,7 +12,7 @@ class GameObject extends Phaser.Sprite {
         this.position.set(position.x, position.y);
         game.world.addChild(this);
         if (type === 'diamond') {
-            this.scale.set(.25);
+            this.scale.set(.4);
             this.tint = 0xffffff;
         }
         if (type === 'antena') {

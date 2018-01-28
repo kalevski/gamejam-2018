@@ -65,12 +65,12 @@ class ActionHelper {
         });
     }
 
-    placePortal(positionKey) {
+    gameOver(winner) {
         this.worldSocket.send('pushAction', this.userData.nickname, {
-            type: 'placePortal',
+            type: 'gameOver',
             data: {
-                positionKey: positionKey,
-                nickname: this.userData.nickname
+                nickname: this.userData.nickname,
+                win: winner
             }
         });
     }

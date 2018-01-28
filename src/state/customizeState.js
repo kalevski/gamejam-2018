@@ -60,19 +60,19 @@ class CustomizeState extends Phaser.State {
         ];
 
         for (let i = 0; i < this.head.length; i++) {
-            this.head[i].alpha = .5;
+            this.head[i].alpha = .8;
             this.head[i].inputEnabled = true;
             this.head[i].events.onInputDown.add(() => this.select('head', i));
         }
 
         for (let i = 0; i < this.body.length; i++) {
-            this.body[i].alpha = .5;
+            this.body[i].alpha = .8;
             this.body[i].inputEnabled = true;
             this.body[i].events.onInputDown.add(() => this.select('body', i));
         }
 
         for (let i = 0; i < this.color.length; i++) {
-            this.color[i].alpha = .5;
+            this.color[i].alpha = .8;
             this.color[i].inputEnabled = true;
             this.color[i].tint = this.palette[i];
             this.color[i].events.onInputDown.add(() => this.select('color', i));
@@ -81,7 +81,7 @@ class CustomizeState extends Phaser.State {
 
     select(type, index) {
         if (this.selected[type] !== null) {
-            this[type][this.selected[type]].alpha = .5;
+            this[type][this.selected[type]].alpha = .8;
         }
         if (this.selected[type] === index) {
             this.selected[type] = null;

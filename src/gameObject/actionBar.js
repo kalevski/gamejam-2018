@@ -12,7 +12,7 @@ class ActionBar extends Phaser.Group {
 
     background = null;
     abilityList = [];
-    hearts = 3;
+    hearts = 1;
     diamonds = 0;
 
     diamondsText = null;

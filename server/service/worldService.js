@@ -60,8 +60,8 @@ class ArenaWorldService {
 
     generate(world) {
         // make choise about world
-        var worldData = worldConfig[worldConfig.worldList[0]];
-        world.type = worldConfig.worldList[0];
+        var worldData = worldConfig[worldConfig.worldList[Math.floor(Math.random() * 2.99 + 1)]];
+        world.type = worldConfig.worldList[Math.floor(Math.random() * 2.99 + 1)];
         world.turnTime = worldConfig.turnTime;
         world.description = worldData.description;
         world.deadFields = worldData.deadFields;

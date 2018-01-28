@@ -12,7 +12,8 @@ class WorldEventHandler {
         ocupateAntena: new Phaser.Signal(),
         placeMine: new Phaser.Signal(),
         placeRock: new Phaser.Signal(),
-        mineExplode: new Phaser.Signal()
+        mineExplode: new Phaser.Signal(),
+        gameOver: new Phaser.Signal()
     }
     
     constructor(worldSocket, userData) {

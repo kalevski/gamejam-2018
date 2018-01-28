@@ -2,6 +2,8 @@ import Phaser from '../phaser';
 import Creature from './creature';
 import Field from '../helper/field';
 import GameObject from './gameObject';
+import GameOverScreen from './screen/gameOverScreen';
+import Explosion from '../gameObject/explosion';
 
 class WorldField extends Phaser.Group {
 
@@ -14,6 +16,9 @@ class WorldField extends Phaser.Group {
         ocupateAntena: new Phaser.Signal(),
         endGame: new Phaser.Signal()
     };
+
+    gameOverScreen = null;
+    closeSocket = new Phaser.Signal();
 
     eventHandler = null;
     actionHelper = null;
@@ -44,8 +49,14 @@ class WorldField extends Phaser.Group {
         this.createCharacters();
         this.createEvents();
 
-        this.onOcupateAntenas.add(this.antenaGameOver, this);
-        this.exec.endGame.add(() => this.antenaGameOver());
+        this.onOcupateAntenas.add(() => {
+            this.gameOver(true);
+            this.actionHelper.gameOver(false);
+        }, this);
+        this.exec.endGame.add(() => {
+            this.gameOver(false);
+            this.actionHelper.gameOver(true);
+        }, this);
     }
 
     createCharacters() {
@@ -77,12 +88,14 @@ class WorldField extends Phaser.Group {
             this.gameObject[object.type][object.position] = new GameObject(this.game,
                 object.type, object.position, this);
         });
+        window.myArray = [];
     }
 
     movePlayer(fieldData) {
         let path = this.field.getPath(this.player[this.currentPlayer].currentField, 
             this.field.getFieldData(fieldData.key));
         this.actionHelper.move(path);
+        window.myArray.push(fieldData.key);
         this.player[this.currentPlayer].move(path);
     }
 
@@ -102,14 +115,10 @@ class WorldField extends Phaser.Group {
             }
             this.sortObjects();
             if (typeof this.mineFields[position.key] !== 'undefined') {
-                debugger;
                 let mine = this.mineFields[position.key];
                 if (mine.owner !== this.currentPlayer) {
-                    // TODO: add animation
-                    // this.gameAnimations = new Object();
-                    // on finish remove animation
-                    // after animation
-                    // 
+                    this.gameAnimations['explosion'] = new Explosion(this.game,
+                        mine.position);
                     mine.destroy();
                     delete this.gameObject['mine'][mine.positionKey];
                     this.actionHelper.mineExplode(mine.positionKey);
@@ -156,11 +165,6 @@ class WorldField extends Phaser.Group {
 
         this.eventHandler.event.ocupateAntena.add((data) => {
             this.gameObject['antena'][data.positionKey].tint = data.color;
-            let antena1Color = this.gameObject['antena'][this.eventHandler.world.antena1].tint;
-            let antena2Color = this.gameObject['antena'][this.eventHandler.world.antena2].tint;
-            if (antena1Color === antena2Color) {
-                this.onOcupateAntenas.dispatch();
-            }
         }, this);
 
         this.exec.placeMine.add(() => {
@@ -192,10 +196,12 @@ class WorldField extends Phaser.Group {
         }, this);
 
         this.eventHandler.event.mineExplode.add((data) => {
-            this.gameObject['mine'][data.positionKey].destroy();
-            delete this.gameObject['mine'][data.positionKey];
-            // this.gameAnimations[data.positionKey] = new Object();
-            console.log('explode', data);
+            this.gameAnimations['explosion'] = new Explosion(this.game,
+                this.field.getFieldData(data.positionKey));
+            try {
+                this.gameObject['mine'][data.positionKey].destroy();
+                delete this.gameObject['mine'][data.positionKey];
+            } catch (e) {}
         }, this);
 
         this.exec.placeRock.add(() => {
@@ -252,14 +258,28 @@ class WorldField extends Phaser.Group {
         //     this.gameObject['portal'][data.positionKey].owner = data.nickname;
         //     this.gameObject['portal'][data.positionKey].hide();
         // }, this);
+
+        this.eventHandler.event.gameOver.add((data) => {
+            this.gameOver(data.win);
+        });
     }
 
-    antenaGameOver() {
-        console.log('antena game over');
-    }
-
-    killedGameOver() {
-
+    gameOver(winner) {
+        this.field.onClick.removeAll();
+        let line = this.game.add.graphics();
+        let p = null;
+        if (winner) {
+            p = this.player[this.currentPlayer];
+        } else {
+            p = this.player[this.oppositePlayer];
+        }
+        line.lineStyle(5, p.data.color, 1);
+        line.moveTo(100, 80);
+        line.lineTo(1180 , 80);
+        setTimeout(() => {
+            this.gameOverScreen = new GameOverScreen(this.game, winner);
+            this.gameOverScreen.onExit.add(() => this.closeSocket.dispatch() ,this);
+        }, 2000);
     }
 
     addDeadFields(deadFields) {
