@@ -82,26 +82,6 @@ class Logger {
           handleExceptions: true,
           json: false,
           colorize: true
-        }),
-        new (winston.transports.File)({
-          name: 'info-file',
-          filename: path.join(__dirname, '../../log/filelog-info.log'),
-          level: 'info',
-          timestamp: self._timestamp,
-          formatter: self._formatter,
-          handleExceptions: true,
-          json: false,
-          colorize: true
-        }),
-        new (winston.transports.File)({
-          name: 'error-file',
-          filename: path.join(__dirname, '../../log/filelog-error.log'),
-          level: 'error',
-          timestamp: self._timestamp,
-          formatter: self._formatter,
-          handleExceptions: true,
-          json: false,
-          colorize: true
         })
       ]
     });

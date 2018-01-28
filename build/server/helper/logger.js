@@ -113,24 +113,6 @@ var Logger = function () {
           handleExceptions: true,
           json: false,
           colorize: true
-        }), new _winston2.default.transports.File({
-          name: 'info-file',
-          filename: _path2.default.join(__dirname, '../../log/filelog-info.log'),
-          level: 'info',
-          timestamp: self._timestamp,
-          formatter: self._formatter,
-          handleExceptions: true,
-          json: false,
-          colorize: true
-        }), new _winston2.default.transports.File({
-          name: 'error-file',
-          filename: _path2.default.join(__dirname, '../../log/filelog-error.log'),
-          level: 'error',
-          timestamp: self._timestamp,
-          formatter: self._formatter,
-          handleExceptions: true,
-          json: false,
-          colorize: true
         })]
       });
     }

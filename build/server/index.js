@@ -44,13 +44,14 @@ var Api = function () {
 
         this.logger = _logger2.default.getInstance();
 
-        if (_cluster2.default.isMaster) {
-            if (this.checkMachine()) {
-                this.master();
-            }
-        } else {
-            this.slave();
-        }
+        new _router2.default();
+        // if (cluster.isMaster) {
+        //     if (this.checkMachine()) {
+        //         this.master();
+        //     }
+        // } else {
+        //     this.slave();
+        // }
     }
 
     _createClass(Api, [{
